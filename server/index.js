@@ -241,6 +241,15 @@ app.get("/api/crime-heatmap", async (req, res) => {
     const year = parseInt(req.query.year || "2024", 10);
 
     if (year === 2025) {
+      // Prioritize fetching from MongoDB
+      if (!useMemory) {
+        let data = await CrimeIncident.find({ year: 2025 });
+        if (data.length > 0) {
+          return res.json(data);
+        }
+      }
+
+      // Fallback to file system if DB is empty or connection failed
       const dataPath = path.join(__dirname, "data", "crime_data_2025.json");
       if (fs.existsSync(dataPath)) {
         const rawData = fs.readFileSync(dataPath, "utf-8");
