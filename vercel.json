@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "comment": "Triggering fresh build with root-level static files",
+  "comment": "Triggering fresh build with root-level static files - 2026-02-21",
   "rewrites": [
     {
       "source": "/api/(.*)",
